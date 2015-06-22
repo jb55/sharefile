@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -e
+
+name=""
+errord=0
+OPTIND=1
+
+show_help () {
+  echo "sharefile [-n newname.png] <FILE>"
+  echo ""
+  echo "    -n NAME         set the destination file name"
+  echo "    -d DESTINATION  set the destination folder. eg: me.com:files"
+  echo "                    export SHAREFILE_HOST=me.com:files/ to set default"
+  echo ""
+  echo "    -u URL          set the destination folder. eg: me.com:files"
+  echo "                    export SHAREFILE_URL=http://me.com/files/ to set default"
+  exit 1
+}
+
+missing_env() {
+  >&2 echo "missing environment variable $1"
+  exit 1
+}
+
+while getopts "h?n:u:d:" opt; do
+  case "$opt" in
+    h|\?)
+      show_help
+      ;;
+    n)
+      name="$OPTARG"
+      ;;
+    d)
+      SHAREFILE_HOST="$OPTARG"
+      ;;
+    u)
+      SHAREFILE_URL="$OPTARG"
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
+[ "$1" = "--" ] && shift
+
+file="$1"
+
+[[ -z $SHAREFILE_HOST ]] && missing_env "SHAREFILE_HOST, eg: me.com:public/files/"
+[[ -z $SHAREFILE_URL ]] && missing_env "SHAREFILE_URL, eg: http://me.com/files/"
+[[ -z $file ]] && show_help
+
+name=${name:-$(basename "$file")}
+dest="${SHAREFILE_HOST}${name}"
+
+rsync -zq --chmod=a=r "$file" "$dest" 
+echo "${SHAREFILE_URL}${name}"
