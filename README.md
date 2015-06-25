@@ -19,6 +19,10 @@
     export SHAREFILE_HOST=me.com:/www/public/share/
     export SHAREFILE_URL=http://me.com/share/
 
+  If you want to use `share_last_ss`:
+
+    export SHARE_SS_DIR="$HOME/img/ss"
+
 ## Example
 
   Set the upload name
