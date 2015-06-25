@@ -58,4 +58,4 @@ dest="${SHAREFILE_HOST}\"${name}\""
 
 rsync -zq --chmod=a=r "$file" "$dest"
 
-echo "${SHAREFILE_URL}$(urlencode "$(basename "${file}")")"
+echo "${SHAREFILE_URL}$(urlencode "$(basename "${name}")")"
