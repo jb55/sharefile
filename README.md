@@ -38,9 +38,12 @@
 
     $ share_last_ss | pbcopy
 
-  Alias it to clipboard in your profile
+  Make some helpers!
 
-    alias share_ss="share_last_ss | pbcopy"
+```bash
+share() { sharefile "$@" | pbcopy }
+sharess() { share_last_ss | pbcopy }
+```
 
 ## Reasons to use Dropbox for sharing now
 
