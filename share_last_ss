@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+SS_DIR=${SHAREFILE_DIR:-"$HOME/img/ss"}
+sharefile -n "$1" "$(ls -1t "$SS_DIR" | head -n1)"
