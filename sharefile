@@ -2,6 +2,10 @@
 
 set -e
 
+urlencode() {
+  perl '-MURI::Escape' -e 'print uri_escape($ARGV[0]);' "$1"
+}
+
 name=""
 errord=0
 OPTIND=1
@@ -47,10 +51,11 @@ file="$1"
 
 [[ -z $SHAREFILE_HOST ]] && missing_env "SHAREFILE_HOST, eg: me.com:public/files/"
 [[ -z $SHAREFILE_URL ]] && missing_env "SHAREFILE_URL, eg: http://me.com/files/"
-[[ -z $file ]] && show_help
+[[ -z "$file" ]] && show_help
 
-name=${name:-$(basename "$file")}
-dest="${SHAREFILE_HOST}${name}"
+name="${name:-"$(basename "$file")"}"
+dest="${SHAREFILE_HOST}\"${name}\""
 
-rsync -zq --chmod=a=r "$file" "$dest" 
-echo "${SHAREFILE_URL}${name}"
+rsync -zq --chmod=a=r "$file" "$dest"
+
+echo "${SHAREFILE_URL}$(urlencode "$(basename "${file}")")"
