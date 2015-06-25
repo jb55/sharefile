@@ -30,6 +30,14 @@
 
     $ sharefile ~/Documents/doc.txt | pbcopy
 
+  Share the last screenshot
+
+    $ share_last_ss | pbcopy
+
+  Alias it to clipboard in your profile
+
+    alias share_ss="share_last_ss | pbcopy"
+
 ## Reasons to use Dropbox for sharing now
 
   None
