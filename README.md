@@ -6,11 +6,15 @@
 
 ## Installation
 
-  Git
+### Git
 
     $ git clone https://github.com/jb55/sharefile /tmp/sharefile && cp /tmp/sharefile/sharefile ~/bin
 
   Or just download it directly and put it in your `PATH`, I don't care
+
+### nix
+
+    $ nix-env -f https://jb55.com/pkgs -iA sharefile
 
 ## Setup
 
