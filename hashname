@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+usage() {
+  echo "hashname <filename>"
+  exit 1
+}
+
+[[ -z "$1" ]] && usage
+
 hash=$(sha1sum "$1" | awk '{ print $1 }')
 hashlen=${2:-16}
 shorthash=${hash:0:$hashlen}
