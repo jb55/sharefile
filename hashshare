@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sharefile -n "$(hashname "$1")"

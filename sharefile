@@ -29,6 +29,9 @@ missing_env() {
 
 while getopts "h?n:u:d:" opt; do
   case "$opt" in
+    h|\?)
+      show_help
+      ;;
     n)
       name="$OPTARG"
       ;;
@@ -38,8 +41,6 @@ while getopts "h?n:u:d:" opt; do
     u)
       SHAREFILE_URL="$OPTARG"
       ;;
-    h)
-      shouldHashName=1
   esac
 done
 
@@ -55,8 +56,6 @@ file="$1"
 name="${name:-"$(basename "$file")"}"
 dest="${SHAREFILE_HOST}\"${name}\""
 
-[[ $shouldHashName == 1 ]] && name="$(hashname "$file")"
-
 rsync -zq --chmod=a=r "$file" "$dest"
 
-echo "${SHAREFILE_URL}$(urlencode "$(basename "$name")")"
+echo "${SHAREFILE_URL}$(urlencode "$(basename "${name}")")"
