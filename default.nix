@@ -10,7 +10,7 @@ let drv =
 }:
 stdenv.mkDerivation rec {
   name = "sharefile-${version}";
-  version = "1.1.0";
+  version = "1.3.0";
   buildInputs = [ perl perlPackages.URI perlPackages.URIEscapeXS makeWrapper rsync openssh ];
 
   src = ./.;
