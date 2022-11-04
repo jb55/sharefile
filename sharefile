@@ -54,7 +54,7 @@ file="$1"
 [[ -z "$file" ]] && show_help
 
 name="${name:-"$(basename "$file")"}"
-dest="${SHAREFILE_HOST}\"${name}\""
+dest="${SHAREFILE_HOST}${name}"
 
 rsync -zq --chmod=a=r "$file" "$dest"
 
